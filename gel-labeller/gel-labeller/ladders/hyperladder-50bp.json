@@ -1,0 +1,32 @@
+{
+  "id": "hyperladder-50bp",
+  "name": "HyperLadder 50bp",
+  "aliases": ["hyperladder 50", "hyperladder ii", "hl50"],
+  "manufacturer": "Meridian Bioscience (Bioline)",
+  "catalogue_numbers": {
+    "BIO-33054": "100 lanes",
+    "BIO-33039": "200 lanes",
+    "BIO-33040": "500 lanes"
+  },
+  "load_volume_ul": 5,
+  "recommended_gel": "1.5% (w/v) agarose",
+  "bands": [
+    {"bp": 2000, "ng": 50},
+    {"bp": 1800, "ng": 20},
+    {"bp": 1600, "ng": 20},
+    {"bp": 1400, "ng": 20},
+    {"bp": 1200, "ng": 20},
+    {"bp": 1000, "ng": 100},
+    {"bp": 800, "ng": 30},
+    {"bp": 700, "ng": 30},
+    {"bp": 600, "ng": 30},
+    {"bp": 500, "ng": 30},
+    {"bp": 400, "ng": 30},
+    {"bp": 300, "ng": 100},
+    {"bp": 200, "ng": 40},
+    {"bp": 100, "ng": 40},
+    {"bp": 50, "ng": 40}
+  ],
+  "reference_bands": [1000, 300, 2000],
+  "source": "Manufacturer band chart (1.5% agarose, 5 ul per lane) and https://www.bioline.com/hyperladder-50bp.html"
+}

@@ -1,0 +1,1458 @@
+{
+ "title": "Ligation sequencing gDNA-Native Barcoding",
+ "footer": {
+  "lab": "For NGS core lab",
+  "drafted_by": "Maame Esi Mpere",
+  "reviewed_by": "Joyce Ngoi"
+ },
+ "purpose": "This protocol describes a standardized workflow for preparing genomic DNA (gDNA) libraries for sequencing using the Oxford Nanopore Technologies Ligation Sequencing gDNA Native Barcoding V14 Kit (SQK-NBD114-24 or SQK-NBD114.96). It aims to ensure consistent and reliable library preparation and sequencing results.",
+ "scope": "This protocol covers gDNA QC, shearing, library preparation including DNA repair and end preparation, native barcode ligation, sample pooling, sequencing adapter ligation, and final library preparation. It also includes loading the prepared library onto a compatible Oxford Nanopore sequencing flow cell and initiating a sequencing run. The procedure applies to trained laboratory personnel performing gDNA library preparation and sequencing using this kit.",
+ "steps": [
+  {
+   "title": "gDNA Quality Control (QC) and Integrity Check",
+   "intro": "The purpose of this step is to evaluate the quantity, purity, and integrity of the genomic DNA (gDNA) samples.",
+   "content": [
+    {
+     "type": "materials",
+     "consumables": [
+      "Qubit assay tubes / strips",
+      "Agilent TapeStation strips or plate"
+     ],
+     "reagents": [
+      "Qubit dsDNA HS Assay kit",
+      "Agilent TapeStation Genomic DNA Reagents (Sample Buffer and Ladder)",
+      "Agilent TapeStation Genomic DNA ScreenTape"
+     ],
+     "equipment": [
+      "Micropipettes",
+      "Vortex mixer",
+      "Qubit fluorometer",
+      "Timer",
+      "Minifuge",
+      "Agilent TapeStation System"
+     ]
+    },
+    {
+     "type": "reagent_prep",
+     "rows": [
+      [
+       "Qubit dsDNA HS reagent kit",
+       "2°C to 8°C",
+       "Thaw and bring to room temperature."
+      ],
+      [
+       "Agilent TapeStation Genomic DNA Reagents (Sample Buffer and Ladder)",
+       "2°C to 8°C",
+       "Thaw and bring to room temperature."
+      ],
+      [
+       "Agilent TapeStation Genomic DNA ScreenTape",
+       "2°C to 8°C",
+       "Thaw and bring to room temperature."
+      ]
+     ]
+    },
+    {
+     "type": "procedure",
+     "steps": [
+      "Quantify samples following the standard Qubit procedure using the Qubit dsDNA HS reagent kit and record your concentration values in ng/µL.",
+      "Check the integrity of DNA on the Agilent TapeStation using the Agilent TapeStation gDNA reagents kit and record your DIN.",
+      "Analyze the combined metrics using the following criteria to determine how to proceed:",
+      {
+       "type": "table",
+       "valign": "center",
+       "header": [
+        "Parameter",
+        "Target",
+        "Action if Criteria Fails"
+       ],
+       "rows": [
+        [
+         {
+          "text": "Total Mass",
+          "bold": true
+         },
+         "600 ng if multiplexing more than four samples. 1.2 µg if multiplexing less than four samples.",
+         "**Low concentration:** Re-extract the sample or concentrate if in high volume."
+        ],
+        [
+         {
+          "text": "DNA Integrity",
+          "bold": true
+         },
+         "**DNA Integrity Number (DIN) 7.0** and standard sizing peak **> 40 kb**.",
+         "**Degraded Sample (DIN < 6.0, sizing < 40 kb):** Skip the Covaris fragmentation step entirely. Proceed directly to end-repair, or re-extract the sample."
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "DNA Fragmentation via Covaris Mechanical Shearing",
+   "intro": "The purpose of this step is to mechanically shear high-molecular-weight, intact genomic DNA (gDNA) into a uniform, targeted fragment size distribution (typically **8 kb to 15 kb** for standard long-read ligation workflows).",
+   "content": [
+    {
+     "type": "materials",
+     "consumables": [
+      "Covaris g-TUBEs",
+      "1.5 mL microcentrifuge tubes"
+     ],
+     "reagents": [
+      "Nuclease-free water or 10 mM Tris-Cl (pH 8.5)"
+     ],
+     "equipment": [
+      "Covaris Focused-Ultrasonicator (e.g., M220, S220)",
+      "Calibrated benchtop centrifuge capable of generating specific RPMs (if using g-TUBEs)"
+     ]
+    },
+    {
+     "type": "section",
+     "title": "Sample Dilution and Preparation"
+    },
+    {
+     "type": "procedure",
+     "steps": [
+      "Based on the concentration determined by the Qubit in Step 1, calculate the volume of gDNA required to meet the input threshold (600 ng).",
+      "Dilute with nuclease-free water to a total volume of 150 µL. See table below.",
+      {
+       "type": "table",
+       "header": [
+        "Sample ID",
+        "Concentration (ng/µL)",
+        "Input Mass (ng)",
+        "Sample volume (µL)",
+        "Diluent volume (µL)",
+        "Total volume (µL)"
+       ],
+       "rows": [
+        [
+         "Sample 1",
+         "85.0",
+         "600",
+         "(600/85) = 7.1",
+         "(150 - 7.1) = 142.9",
+         "150.0"
+        ],
+        [
+         "Sample 2",
+         "32.4",
+         "600",
+         "(600/32.4) = 18.5",
+         "(150 - 18.5) = 131.5",
+         "150.0"
+        ],
+        [
+         "Sample 3",
+         "12.0",
+         "600",
+         "(600/12) = 50.0",
+         "(150 - 50) = 100.0",
+         "150.0"
+        ]
+       ]
+      },
+      "Note your specific microcentrifuge model and cross-reference your total DNA mass with your targeted fragment size to determine your required RPM (Tables 1 and 2).",
+      {
+       "type": "table",
+       "caption": "Recommended centrifugation speed (RPM) for different input mass and the targeted DNA fragment size for Eppendorf® 5424 and 5415 R (24-position rotor)",
+       "first_col_bold": true,
+       "header": [
+        [
+         "",
+         {
+          "text": "Targeted size",
+          "span": 4
+         }
+        ],
+        [
+         "Mass of DNA",
+         "6 kbp",
+         "8 kbp",
+         "10 kbp",
+         "20 kbp"
+        ]
+       ],
+       "rows": [
+        [
+         "≤ 4 µg",
+         "11,000 RPM",
+         "7,200 RPM",
+         "6,000 RPM",
+         "4,200 RPM"
+        ],
+        [
+         "8 µg",
+         "11,000 RPM",
+         "7,200 RPM",
+         "6,000 RPM",
+         "4,800 RPM"
+        ],
+        [
+         "15 µg",
+         "13,200 RPM",
+         "8,600 RPM",
+         "7,200 RPM",
+         "5,800 RPM"
+        ],
+        [
+         "30 µg",
+         "13,200 RPM",
+         "10,000 RPM",
+         "8,600 RPM",
+         "7,200 RPM"
+        ],
+        [
+         "Spin Duration",
+         "30 seconds",
+         "60 seconds",
+         "60 seconds",
+         "60 seconds"
+        ]
+       ]
+      },
+      {
+       "type": "table",
+       "caption": "Recommended centrifugation speed (RPM) for different input mass and the targeted DNA fragment size for Eppendorf® MiniSpin plus",
+       "first_col_bold": true,
+       "header": [
+        [
+         "",
+         {
+          "text": "Targeted size",
+          "span": 4
+         }
+        ],
+        [
+         "Mass of DNA",
+         "6 kbp",
+         "8 kbp",
+         "10 kbp",
+         "20 kbp"
+        ]
+       ],
+       "rows": [
+        [
+         "≤ 4 µg",
+         "14,500 RPM",
+         "9,400 RPM",
+         "8,000 RPM",
+         "5,500 RPM"
+        ],
+        [
+         "8 µg",
+         "14,500 RPM",
+         "9,400 RPM",
+         "8,000 RPM",
+         "6,300 RPM"
+        ],
+        [
+         "15 µg",
+         "N/A",
+         "11,200 RPM",
+         "9,400 RPM",
+         "7,600 RPM"
+        ],
+        [
+         "30 µg",
+         "N/A",
+         "30,000 RPM",
+         "11,200 RPM",
+         "9,400 RPM"
+        ],
+        [
+         "Spin Duration",
+         "30 seconds",
+         "60 seconds",
+         "60 seconds",
+         "60 seconds"
+        ]
+       ]
+      },
+      {
+       "type": "note",
+       "text": "Microcentrifuge acceleration must never exceed 16,000 x g (RCF)."
+      }
+     ]
+    },
+    {
+     "type": "section",
+     "title": "Sample Loading"
+    },
+    {
+     "type": "procedure",
+     "steps": [
+      "Place a new g-TUBE into the LOAD position of the prep station stand with the blue screw-cap facing up.",
+      "Unscrew and remove the blue cap.",
+      "Pipette exactly 150 µL of your diluted DNA sample directly into the top chamber of the tube. Make sure your sample is free from particulate matter and DNA is fully dissolved.",
+      {
+       "text": "Close the g-TUBE. Screw the blue cap on very firmly by hand.",
+       "substeps": [
+        "If additional leverage is required, insert the tube vertically into the prep stand slot and use the stand as a wrench to tighten the cap firmly."
+       ]
+      },
+      "Proceed to the centrifugation stage **within 15 minutes of loading**.",
+      "Insert the g-TUBE into the microcentrifuge rotor with the screw-cap facing UP. Ensure the rotor is properly balanced with an extra g-TUBE if necessary.",
+      "Input the selected RPM and processing time determined in Section A, step 3.",
+      "Initiate the spin cycle.",
+      "Remove the g-TUBE and perform a visual check. The entire sample liquid volume must have drained completely from the upper chamber to the bottom.",
+      "Invert the g-TUBE so that the screw-cap is now facing DOWN.",
+      "Place the inverted tube back into the centrifuge rotor.",
+      "Spin the sample a second time using the exact same speed and time duration used in the first pass.",
+      "Proceed to sample collection within 15 minutes of completion.",
+      "Remove the g-TUBE from the rotor, keeping the screw-cap facing down at all times.",
+      "Seat the inverted tube securely into the UNLOAD position of the prep station stand.",
+      "Gently unscrew the clear tube body from the top, leaving the blue screw-cap (which now holds the sheared liquid sample) resting in the stand slot.",
+      "Pipette your sheared DNA from inside the cap using a standard pipette tip. Tilting the prep stand slightly can optimize sample visibility and recovery volume.",
+      "Proceed to the next step."
+     ]
+    },
+    {
+     "type": "troubleshooting",
+     "issues": [
+      {
+       "problem": "Sample liquid is stuck in the upper chamber after the first pass",
+       "cause": "Minor particulate matter or high-density impurities are blocking the internal ruby orifice.",
+       "action": [
+        "Repeat the first spin pass (screw-cap up) at the configured speed until all fluid clears into the bottom chamber.",
+        "If the block persists, invert the tube (screw-cap down) and spin at 4,300 x g (RCF) for 30 seconds to force the sample backward into the cap.",
+        "Recover the sample from the cap, pass the liquid through a 0.45 µm filtration device (e.g., Millipore Millex 4 mm filter), and clean the solution before re-trying with a brand-new g-TUBE."
+       ]
+      },
+      {
+       "problem": "Low recovery volume / fluid sweated into screw threads",
+       "cause": "The blue cap was not screwed on tightly enough before spinning, allowing fluid to travel into the threads.",
+       "action": "The sample is not lost. Pipette out whatever fluid is in the cap reservoir first. Re-assemble the tube body onto the cap tightly, invert it (cap down), and run a brief pulse-spin at low RPM for a few seconds. Re-open the tube in the unload stand to recover the remaining trapped fluid from the cap."
+      },
+      {
+       "problem": "Sheared DNA size is smaller than target expectation",
+       "cause": "Degradation of the input material or an initial gDNA length under 45 kbp.",
+       "action": "Assess your raw material quality via gel electrophoresis or TapeStation. If your input gDNA yields a smeared profile, decrease your centrifuge RPM parameters on subsequent runs to offset the lower starting size."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Sheared DNA Clean-up, Quality Control and Dilution",
+   "intro": "This step removes small fragments from the shearing process.",
+   "content": [
+    {
+     "type": "materials",
+     "consumables": [
+      "PCR plates and strips",
+      "Filtered pipette tips",
+      "Qubit assay tubes/strips",
+      "Agilent TapeStation strips/plate"
+     ],
+     "reagents": [
+      "AMPure XP beads",
+      "Ethanol (80%)",
+      "Elution Buffer (EB)",
+      "Qubit dsDNA HS reagent",
+      "Agilent TapeStation Genomic DNA Reagents (Sample Buffer and Ladder)",
+      "Agilent TapeStation Genomic DNA ScreenTape",
+      "Nuclease-free water"
+     ],
+     "equipment": [
+      "Magnetic rack",
+      "Micropipettes",
+      "Vortex mixer",
+      "Qubit fluorometer",
+      "Timer",
+      "Minifuge",
+      "Agilent TapeStation System"
+     ]
+    },
+    {
+     "type": "reagent_prep",
+     "rows": [
+      [
+       "AMPure XP beads",
+       "2°C to 8°C",
+       "Thaw at room temperature. Vortex well to mix."
+      ],
+      [
+       "Ethanol (80%)",
+       "Room temperature",
+       "Freshly prepare 80% ethanol with nuclease-free water."
+      ],
+      [
+       "Elution Buffer (EB)",
+       "2°C to 8°C",
+       "Thaw and bring to room temperature."
+      ],
+      [
+       "Qubit dsDNA HS reagent",
+       "2°C to 8°C",
+       "Thaw and bring to room temperature."
+      ],
+      [
+       "Agilent TapeStation Genomic DNA Reagents (Sample Buffer and Ladder)",
+       "2°C to 8°C",
+       "Thaw and bring to room temperature."
+      ],
+      [
+       "Agilent TapeStation Genomic DNA ScreenTape",
+       "2°C to 8°C",
+       "Thaw and bring to room temperature."
+      ]
+     ]
+    },
+    {
+     "type": "section",
+     "title": "gDNA Clean-up"
+    },
+    {
+     "type": "procedure",
+     "steps": [
+      "Determine the actual sample volume using a pipette. This is important for accurate bead-to-sample ratio estimation.",
+      "Use a 1.0x bead ratio for the clean-up. For instance, add 150 µL of AMPure XP beads to each tube containing 150 µL of sample.",
+      "Pipette up and down to mix thoroughly.",
+      "Pulse centrifuge (\"on-off\") to collect all liquid at the bottom of the tube. **Do not pellet the beads.**",
+      "Incubate for 5 mins at room temperature.",
+      "Place on magnetic rack for 5 mins or until the beads have pelleted and the supernatant is completely clear.",
+      "Carefully remove and discard the supernatant, being careful not to touch the bead pellet.",
+      "Without disturbing the beads, add 200 µL of freshly prepared 80% EtOH and incubate for 30 seconds.",
+      "Remove supernatant and discard.",
+      "Repeat steps 8 to 9 for a total of two EtOH washes.",
+      "Pulse centrifuge and remove any residual EtOH.",
+      "Air-dry beads for 2 to 5 mins, ensuring the beads do not over-dry.",
+      {
+       "type": "note",
+       "text": "This may vary depending on the volume of beads used and atmospheric conditions. Check every 2 mins to ensure that the beads don't over-dry. Perfectly dried beads should have the appearance of wet paint; they should not crack."
+      },
+      "Remove the tube from the magnet and re-suspend the pellet in 32 µL of buffer EB.",
+      "Mix gently by pipetting up and down.",
+      "Incubate for 2 min at room temperature, still off the magnet.",
+      "Place the tube back on the magnet and transfer 30 µL of supernatant to a clean 1.5 mL Eppendorf tube, ensuring no beads are transferred into this tube.",
+      "Quantify purified DNA using the Qubit HS dsDNA assay and Qubit fluorometer and record the concentration (ng/µL).",
+      "Run the sample on the TapeStation to verify the final fragmentation distribution profile using the Agilent TapeStation reagent and ScreenTape."
+     ]
+    },
+    {
+     "type": "section",
+     "title": "Sample Dilution"
+    },
+    {
+     "type": "procedure",
+     "steps": [
+      {
+       "text": "Input mass consideration. The protocol recommends the following input mass:",
+       "substeps": [
+        "400 ng per sample for > 4 barcodes",
+        "1000 ng per sample for ≤ 4 barcodes"
+       ]
+      },
+      "Calculate the volume of DNA required to obtain a total DNA input of 400 ng.",
+      "Dilute the samples in 11 µL of nuclease-free water.",
+      "Prepare the dilution according to the table below. Use the ***genomic DNA sequencing ONT worksheet*** to work out the respective volumes required per sample.",
+      {
+       "type": "table",
+       "layout": "compact",
+       "header": [
+        "Sample ID",
+        "Conc. (ng/µL)",
+        "Total input (ng)",
+        "DNA Vol. (µL)",
+        "Diluent Vol. (µL)"
+       ],
+       "rows": [
+        [
+         "A1",
+         "100",
+         "400",
+         "4.0",
+         "7.0"
+        ],
+        [
+         "A2",
+         "60",
+         "400",
+         "6.7",
+         "4.3"
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "title": "DNA Repair and End-preparation",
+   "intro": "This step repairs damaged genomic DNA and prepares the ends for the subsequent ligation of native barcodes.",
+   "content": [
+    {
+     "type": "materials",
+     "consumables": [
+      "1.5 mL PCR tubes",
+      "0.2 mL PCR strips/plate",
+      "Filtered pipette tips",
+      "Ice bucket with ice",
+      "Tube rack",
+      "Heat seals",
+      "Qubit assay strips/tubes"
+     ],
+     "reagents": [
+      "NEBNext FFPE DNA Repair Mix (NEB, M6630)",
+      "NEBNext Ultra II End Repair/dA-Tailing Module (NEB, E7546)",
+      "AMPure XP Beads (AXP)",
+      "DNA Control Sample (DCS)",
+      "Elution Buffer (EB)",
+      "Nuclease-free water",
+      "Freshly prepared 80% ethanol in nuclease-free water",
+      "Qubit dsDNA HS reagent"
+     ],
+     "equipment": [
+      "Micropipettes (P2, P10, P20, P200, P1000)",
+      "Thermocycler",
+      "Mini centrifuge",
+      "Qubit fluorometer",
+      "Magnetic tube rack",
+      "Hula mixer"
+     ]
+    },
+    {
+     "type": "reagent_prep",
+     "rows": [
+      [
+       "NEBNext Ultra II End Prep Reaction Buffer",
+       "-25°C to -15°C",
+       "Thaw on ice, vortex to mix and briefly centrifuge."
+      ],
+      [
+       "NEBNext Ultra II End Prep Enzyme Mix",
+       "-25°C to -15°C",
+       "Thaw on ice. Invert to mix and briefly centrifuge."
+      ],
+      [
+       "NEBNext FFPE DNA Repair Mix",
+       "-25°C to -15°C",
+       "Thaw on ice. Invert to mix and briefly centrifuge."
+      ],
+      [
+       "NEBNext FFPE DNA Repair Buffer",
+       "-25°C to -15°C",
+       "Thaw on ice, vortex to mix and briefly centrifuge."
+      ],
+      [
+       "DNA Control Sample",
+       "-25°C to -15°C",
+       "Thaw at room temperature and store on ice."
+      ],
+      [
+       "AMPure XP beads",
+       "2°C to 8°C",
+       "Thaw at room temperature. Vortex well to mix."
+      ],
+      [
+       "Ethanol (80%)",
+       "Room temperature",
+       "Freshly prepare 80% ethanol."
+      ],
+      [
+       "Elution Buffer (EB)",
+       "-25°C to -15°C",
+       "Thaw and bring to room temperature."
+      ],
+      [
+       "Qubit dsDNA HS reagent",
+       "2°C to 8°C",
+       "Thaw and bring to room temperature."
+      ]
+     ]
+    },
+    {
+     "type": "procedure",
+     "steps": [
+      {
+       "text": "Prepare the DNA Control Sample.",
+       "substeps": [
+        "Add 105 µL of Elution Buffer directly to one tube of DNA Control Sample.",
+        "Mix gently by pipetting and briefly centrifuge."
+       ]
+      },
+      "Add 1 µL of the DNA Control Sample to each diluted DNA sample (11 µL).",
+      {
+       "type": "note",
+       "text": "The diluted control can be stored at -20°C for subsequent use. One prepared tube provides enough control material for approximately 140 samples."
+      },
+      {
+       "type": "important",
+       "text": "The control is recommended for troubleshooting; however, you can omit the step and add an extra 1 µL of your DNA sample."
+      },
+      "In the master mix area, prepare the End Preparation reaction as follows in a clean 1.5 mL PCR tube:",
+      {
+       "type": "table",
+       "layout": "compact",
+       "header": [
+        "Component",
+        "Volume/sample",
+        "N samples"
+       ],
+       "rows": [
+        [
+         "NEBNext FFPE DNA Repair Buffer",
+         "0.875 µL",
+         ""
+        ],
+        [
+         "Ultra II End-prep Reaction Buffer",
+         "0.875 µL",
+         ""
+        ],
+        [
+         "Ultra II End-prep Enzyme Mix",
+         "0.75 µL",
+         ""
+        ],
+        [
+         "NEBNext FFPE DNA Repair Mix",
+         "0.5 µL",
+         ""
+        ],
+        [
+         "Total",
+         "3 µL",
+         ""
+        ]
+       ]
+      },
+      "In the pre-PCR area, transfer **3 µL** of the master mix to each DNA sample containing 12 µL of DNA and diluted control.",
+      "Mix the reaction thoroughly by pipetting up and down at least 10 times.",
+      "Briefly centrifuge to collect the contents at the bottom of the tubes.",
+      "Place the samples in a thermal cycler and run the **'LS_End Prep'** program as follows:",
+      {
+       "type": "table",
+       "layout": "compact",
+       "header": [
+        "Step",
+        "Temperature",
+        "Time",
+        "Cycles"
+       ],
+       "rows": [
+        [
+         "Step 1",
+         "20 °C",
+         "00:05:00",
+         "1"
+        ],
+        [
+         "Step 2",
+         "65 °C",
+         "00:05:00",
+         "1"
+        ],
+        [
+         "Hold",
+         "4 °C",
+         "00:01:00",
+         "1"
+        ]
+       ]
+      },
+      {
+       "text": "Purify the repaired and end-prepped DNA.",
+       "substeps": [
+        "Transfer each sample into a clean 1.5 mL DNA LoBind tube.",
+        "Resuspend the AMPure XP beads thoroughly by vortexing.",
+        "Add 15 µL of AMPure XP beads to each 15 µL reaction.",
+        "Mix by gently flicking the tube.",
+        "Incubate on a Hula mixer or equivalent gentle rotator for 5 minutes at room temperature.",
+        "Briefly centrifuge the samples.",
+        "Place the tubes on a magnetic rack and allow the beads to collect until the supernatant is clear.",
+        "Keeping the tubes on the magnet, carefully remove and discard the supernatant without disturbing the beads.",
+        "Add 200 µL of freshly prepared 80% ethanol to each sample.",
+        "Wash the beads without disturbing the pellet. Remove and discard the ethanol.",
+        "Repeat the ethanol wash once using another 200 µL of freshly prepared 80% ethanol.",
+        "Briefly centrifuge the tubes and return them to the magnetic rack.",
+        "Remove any residual ethanol carefully with a pipette.",
+        "Allow the beads to dry for approximately 30 seconds. Do not overdry the pellet or allow it to crack.",
+        "Remove the tubes from the magnetic rack and resuspend each pellet in 10 µL of nuclease-free water.",
+        "Briefly centrifuge and incubate for 2 minutes at room temperature.",
+        "Place the tubes on the magnetic rack and wait until the eluate becomes clear.",
+        "Transfer 10 µL of the eluate into a clean DNA LoBind tube, avoiding the beads."
+       ]
+      },
+      "Quantify 1 µL of the eluted DNA using a Qubit fluorometer.",
+      "Calculate the DNA quantity required for the subsequent native barcode ligation step.",
+      "Take forward the appropriate equimolar DNA input for each sample."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Native Barcode Ligation and Clean-up",
+   "intro": "To attach a unique native barcode to each DNA sample, allowing multiple samples to be combined and sequenced on one flow cell.",
+   "content": [
+    {
+     "type": "materials",
+     "consumables": [
+      "0.2 mL PCR tubes or PCR plate",
+      "Filtered pipette tips",
+      "Qubit assay tubes"
+     ],
+     "reagents": [
+      "Native Barcode (NBXX)",
+      "NEB Blunt/TA Ligase Master Mix",
+      "EDTA",
+      "Nuclease-free water",
+      "AMPure XP beads",
+      "Short Fragment Buffer (SFB)",
+      "Elution Buffer (EB)",
+      "Qubit dsDNA HS reagent"
+     ],
+     "equipment": [
+      "Micropipettes (P2, P10, P20)",
+      "Mini centrifuge",
+      "Thermocycler",
+      "Tube rack",
+      "Magnetic rack",
+      "Vortex mixer",
+      "Qubit fluorometer"
+     ]
+    },
+    {
+     "type": "reagent_prep",
+     "rows": [
+      [
+       "NEB Blunt/TA Ligase Master Mix",
+       "-25°C to -15°C",
+       "Thaw on ice, invert to mix, briefly centrifuge and place on ice."
+      ],
+      [
+       "Native Barcode (NBXX)",
+       "-25°C to -15°C",
+       "Thaw at room temperature, vortex to mix, briefly centrifuge and place on ice."
+      ],
+      [
+       "EDTA",
+       "-25°C to -15°C",
+       "Thaw at room temperature, vortex to mix and place on ice."
+      ],
+      [
+       "AMPure XP beads",
+       "2°C to 8°C",
+       "Thaw at room temperature. Vortex to mix."
+      ],
+      [
+       "Short Fragment Buffer (SFB)",
+       "-25°C to -15°C",
+       "Thaw at room temperature. Vortex to mix."
+      ],
+      [
+       "Elution Buffer (EB)",
+       "-25°C to -15°C",
+       "Thaw and bring to room temperature."
+      ],
+      [
+       "Qubit dsDNA HS reagent",
+       "2°C to 8°C",
+       "Thaw and bring to room temperature."
+      ]
+     ]
+    },
+    {
+     "type": "procedure",
+     "steps": [
+      "Aliquot 10 µL of NEB Blunt/TA Ligase Master Mix into a clean PCR plate or strip in the master mix area.",
+      "Add 7.5 µL of end-prepped DNA sample into each sample well in the pre-PCR area.",
+      "Add 2.5 µL of the assigned Native Barcode to each sample.",
+      "Mix by pipetting 10 to 20 times between additions.",
+      "Gently pipette the reaction to ensure thorough mixing and briefly centrifuge the tubes.",
+      "Incubate the reaction in a thermal cycler for **20 minutes at 20 °C.**",
+      "Add 4 µL of EDTA (blue cap) to each reaction, mix thoroughly by pipetting and briefly centrifuge.",
+      "Pool **all** the barcoded reactions into a clean 1.5 mL DNA LoBind tube.",
+      {
+       "type": "table",
+       "layout": "compact",
+       "header": [
+        "Number of samples",
+        "Total pooled volume"
+       ],
+       "rows": [
+        [
+         "6",
+         "144 µL"
+        ],
+        [
+         "12",
+         "288 µL"
+        ],
+        [
+         "24",
+         "576 µL"
+        ]
+       ]
+      },
+      "Resuspend the AMPure XP beads thoroughly by vortexing.",
+      {
+       "text": "Add a 0.4x ratio of AMPure XP beads to the pooled reaction and mix well by pipetting. The required volume recommended when using the EDTA blue cap is:"
+      },
+      {
+       "type": "table",
+       "layout": "compact",
+       "header": [
+        "Number of samples",
+        "AMPure XP bead volume"
+       ],
+       "rows": [
+        [
+         "1",
+         "10 µL"
+        ],
+        [
+         "6",
+         "58 µL"
+        ],
+        [
+         "12",
+         "115 µL"
+        ],
+        [
+         "24",
+         "230 µL"
+        ]
+       ]
+      },
+      "Incubate on a Hula mixer for 10 minutes at room temperature. If a Hula mixer is absent, gently flick the tube every 2 minutes.",
+      "Pulse spin and place the tube on a magnetic rack for approximately 5 minutes, or until the supernatant is clear.",
+      "Remove and discard the supernatant.",
+      "Add **700 µL of Short Fragment Buffer** to the bead pellet.",
+      "Gently flick the tube to resuspend the beads, briefly centrifuge, and return the tube to the magnetic rack.",
+      "Allow the beads to collect and remove the supernatant.",
+      "Repeat the Short Fragment Buffer wash using another 700 µL.",
+      "Briefly centrifuge and return the tube to the magnetic rack.",
+      "Carefully remove any residual buffer.",
+      "Remove the tube from the rack and resuspend the beads in 35 µL of nuclease-free water by gently flicking.",
+      "Incubate at 37°C for 10 minutes. Every 2 minutes, gently flick the tube for approximately 10 seconds to aid DNA elution.",
+      "Place the tube on the magnetic rack until the eluate is clear.",
+      "Transfer 32 µL of the eluate into a clean 1.5 mL DNA LoBind tube.",
+      "Quantify 1 µL of the purified barcoded library using a Qubit fluorometer.",
+      "Proceed to the adapter ligation stage."
+     ]
+    },
+    {
+     "type": "safe_stop",
+     "text": "The purified barcoded DNA may be stored at 4°C overnight."
+    }
+   ]
+  },
+  {
+   "title": "Adapter Ligation and Clean-up",
+   "intro": "To attach the sequencing adapters required for DNA molecules to be processed by the nanopores.",
+   "content": [
+    {
+     "type": "materials",
+     "consumables": [
+      "DNA LoBind tubes",
+      "Filtered pipette tips"
+     ],
+     "reagents": [
+      "Purified pooled barcode library",
+      "NEBNext Quick Ligation Reaction Buffer (5x)",
+      "Native Adapter (NA)",
+      "Quick T4 DNA Ligase"
+     ],
+     "equipment": [
+      "Micropipettes",
+      "Mini centrifuge"
+     ]
+    },
+    {
+     "type": "reagent_prep",
+     "rows": [
+      [
+       "NEBNext Quick Ligation Reaction Buffer (5x)",
+       "-25°C to -15°C",
+       "Thaw on ice, vortex to mix and briefly centrifuge."
+      ],
+      [
+       "Native Adapter (NA)",
+       "-25°C to -15°C",
+       "Thaw on ice, pipette to mix and briefly centrifuge."
+      ],
+      [
+       "Quick T4 DNA Ligase",
+       "-25°C to -15°C",
+       "Thaw on ice, pipette to mix and briefly centrifuge."
+      ]
+     ]
+    },
+    {
+     "type": "procedure",
+     "steps": [
+      "In a new 1.5 mL Eppendorf tube, set up the following adapter ligation reaction in the master mix area:",
+      {
+       "type": "table",
+       "layout": "compact",
+       "header": [
+        "Component",
+        "Volume"
+       ],
+       "rows": [
+        [
+         "NEBNext Quick Ligation Reaction Buffer (5x)",
+         "10 µL"
+        ],
+        [
+         "Native Adapter (NA)",
+         "5 µL"
+        ],
+        [
+         "Quick T4 DNA Ligase",
+         "5 µL"
+        ],
+        [
+         "Total",
+         "20 µL"
+        ]
+       ]
+      },
+      "Add the master mix reaction to the barcoded library (30 µL).",
+      "Gently pipette and briefly spin down.",
+      "Incubate for **20 min at room temperature**."
+     ]
+    },
+    {
+     "type": "section",
+     "title": "Post-Ligation Clean-up",
+     "intro": "Remove excess adapters and prepare sequencing-ready DNA."
+    },
+    {
+     "type": "materials",
+     "consumables": [
+      "DNA LoBind tubes",
+      "Filtered pipette tips",
+      "Qubit assay tubes"
+     ],
+     "reagents": [
+      "AMPure XP beads",
+      "Short Fragment Buffer (SFB) or Long Fragment Buffer (LFB)",
+      "Elution Buffer (EB)",
+      "Qubit dsDNA HS reagent"
+     ],
+     "equipment": [
+      "Magnetic rack",
+      "Micropipettes",
+      "Vortex mixer",
+      "Qubit fluorometer"
+     ]
+    },
+    {
+     "type": "reagent_prep",
+     "rows": [
+      [
+       "AMPure XP beads",
+       "2°C to 8°C",
+       "Thaw at room temperature. Vortex to mix."
+      ],
+      [
+       "Short Fragment Buffer (SFB) or Long Fragment Buffer (LFB)",
+       "-25°C to -15°C",
+       "Thaw at room temperature. Vortex to mix."
+      ],
+      [
+       "Elution Buffer (EB)",
+       "-25°C to -15°C",
+       "Thaw and bring to room temperature."
+      ],
+      [
+       "Qubit dsDNA HS reagent",
+       "2°C to 8°C",
+       "Thaw and bring to room temperature."
+      ]
+     ]
+    },
+    {
+     "type": "procedure",
+     "steps": [
+      "Add **20 µL AMPure XP beads** (supplied with ONT kit) to the sample tube. Pipette up and down and pulse centrifuge to collect all liquid at the bottom of the tube.",
+      "Incubate on a Hula mixer (rotator mixer) for 10 minutes at room temperature.",
+      "Pulse spin the sample (\"on-off\") to collect all liquid at the bottom of the tube. **Do not pellet the beads.**",
+      "Place the tube on a magnetic rack and incubate for 5 mins or until the beads have pelleted and the supernatant is completely clear.",
+      "Carefully remove and discard the supernatant, being careful not to touch the bead pellet.",
+      "Remove the tube from the magnet and wash the beads by adding 125 µL Short Fragment Buffer or Long Fragment Buffer.",
+      "Pipette up and down to resuspend and pulse spin (\"on-off\"). **Do not pellet the beads.**",
+      "Place the tube back on the magnetic rack and allow the beads to pellet.",
+      "Remove the supernatant using a pipette and discard.",
+      "Repeat steps 6 to 9 for a total of two washes.",
+      "Resuspend the pellet in 17 µL Elution Buffer and pipette up and down to mix.",
+      "Pulse spin (\"on-off\"). **Do not pellet the beads.**",
+      "Incubate for 10 minutes at 37°C. Every 2 minutes, agitate the sample by gently flicking for 10 seconds to encourage DNA elution.",
+      "Pellet the beads on a magnet until the eluate is clear and colourless, for at least 2 minutes.",
+      "Remove and retain 15 µL of eluate containing the DNA library in a clean 1.5 mL Eppendorf DNA LoBind tube.",
+      "Quantify 1 µL of eluted sample using the Qubit HS dsDNA assay on the Qubit fluorometer."
+     ]
+    },
+    {
+     "type": "note",
+     "text": "The final library can now be stored at 4 °C for up to a week or at -80°C for up to 3 months if needed; otherwise proceed directly to MinION sequencing. Keep the prepared library on ice or at 4°C until it is ready to be loaded."
+    },
+    {
+     "type": "safe_stop",
+     "label": "Safe stopping point and storage",
+     "items": [
+      "Short-term storage or anticipated reuse: 4°C.",
+      "Single use or long-term storage exceeding three months: -80°C in DNA LoBind tubes."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Sequencing",
+   "intro": "This step outlines the steps involved in sequencing on either the MinION or GridION.",
+   "content": [
+    {
+     "type": "section",
+     "title": "Flow Cell Priming",
+     "intro": "Prepare the flow cell for sequencing."
+    },
+    {
+     "type": "materials",
+     "consumables": [
+      "FLO-MIN flow cell",
+      "Filtered pipette tips"
+     ],
+     "reagents": [
+      "Flow Cell Flush (FCF)",
+      "Bovine serum albumin (BSA) at 50 mg/mL",
+      "Flow Cell Tether (FCT)"
+     ],
+     "equipment": [
+      "MinION device",
+      "Micropipettes"
+     ]
+    },
+    {
+     "type": "reagent_prep",
+     "rows": [
+      [
+       "Flow Cell Flush (FCF)",
+       "-25°C to -15°C",
+       "Thaw at room temperature, vortex to mix and briefly centrifuge."
+      ],
+      [
+       "Bovine serum albumin (BSA) at 50 mg/mL",
+       "-25°C to -15°C",
+       "Thaw at room temperature, invert to mix and briefly centrifuge."
+      ],
+      [
+       "Flow Cell Tether (FCT)",
+       "-25°C to -15°C",
+       "Thaw at room temperature, vortex to mix and briefly centrifuge."
+      ],
+      [
+       "FLO-MIN flow cell",
+       "2°C to 8°C",
+       "Bring to room temperature."
+      ]
+     ]
+    },
+    {
+     "type": "procedure",
+     "steps": [
+      "Refer to ONT documentation for images explaining how to check, prime, and load the flow cell.",
+      "Complete a flow cell check: open the MinKNOW user interface and load the flow cell onto the MinION. Press down firmly on the flow cell to ensure correct thermal and electrical contact.",
+      "Click Flow Cell Check in the MinKNOW interface.",
+      "To prepare the flow cell priming mix, combine the following reagents in the FCF tube and mix by inverting the tube and pipette mixing at room temperature.",
+      {
+       "type": "table",
+       "layout": "compact",
+       "header": [
+        "Component",
+        "Volume"
+       ],
+       "rows": [
+        [
+         "Flow Cell Flush (FCF)",
+         "1170 µL"
+        ],
+        [
+         "Bovine serum albumin (BSA) at 50 mg/mL",
+         "5 µL"
+        ],
+        [
+         "Flow Cell Tether (FCT)",
+         "30 µL"
+        ],
+        [
+         "Total",
+         "1205 µL"
+        ]
+       ]
+      },
+      "Slide the flow cell priming port cover clockwise to open the priming port.",
+      "After opening the priming port, set a P1000 pipette to 200 µL, insert the tip into the priming port, and turn the wheel until the dial shows 220 to 230 µL, to draw back 20 to 30 µL or until you can see a small volume of buffer entering the pipette tip.",
+      "Visually check that there is continuous buffer from the priming port across the sensor array.",
+      "Load 800 µL of the priming mix into the flow cell via the priming port, avoiding the introduction of air bubbles.",
+      "**Wait for five minutes.** During this time, prepare the library for loading by following the steps below."
+     ]
+    },
+    {
+     "type": "section",
+     "title": "Loading the Flow Cell and Sequencing"
+    },
+    {
+     "type": "materials",
+     "consumables": [
+      "DNA LoBind tube",
+      "Filtered pipette tips"
+     ],
+     "reagents": [
+      "Sequencing Buffer (SB)",
+      "Library Beads (LIB)"
+     ],
+     "equipment": [
+      "Micropipettes",
+      "Vortex mixer"
+     ]
+    },
+    {
+     "type": "reagent_prep",
+     "rows": [
+      [
+       "Sequencing Buffer (SB)",
+       "-25°C to -15°C",
+       "Thaw at room temperature, vortex to mix and briefly centrifuge."
+      ],
+      [
+       "Library Beads (LIB)",
+       "-25°C to -15°C",
+       "Thaw at room temperature, mix by pipetting immediately before use."
+      ]
+     ]
+    },
+    {
+     "type": "procedure",
+     "steps": [
+      "Dilute the library in 12 µL of Elution Buffer, using the recommended loading quantity for the fragment size as shown in the table below.",
+      {
+       "type": "table",
+       "layout": "compact",
+       "header": [
+        "Library fragment size",
+        "Recommended loading amount"
+       ],
+       "rows": [
+        [
+         "Very short, less than 1 kb",
+         "100 fmol"
+        ],
+        [
+         "Short, 1 to 10 kb",
+         "35 to 50 fmol"
+        ],
+        [
+         "Long, greater than 10 kb",
+         "300 ng"
+        ]
+       ]
+      },
+      "If the library yield is below the recommended input, load the entire library.",
+      "In a new 1.5 mL Eppendorf DNA LoBind tube, prepare the library for loading as follows. Do not mix at this point.",
+      {
+       "type": "note",
+       "text": "Load the library onto the flow cell immediately after adding SB and LIB, because the fuel in the buffer will start to be consumed by the adapter."
+      },
+      {
+       "type": "table",
+       "layout": "compact",
+       "header": [
+        "Component",
+        "Volume"
+       ],
+       "rows": [
+        [
+         "Sequencing Buffer (SB)",
+         "37.5 µL"
+        ],
+        [
+         "Library Beads (LIB)",
+         "25.5 µL"
+        ],
+        [
+         "DNA library",
+         "12 µL"
+        ],
+        [
+         "Total",
+         "75 µL"
+        ]
+       ]
+      },
+      "Complete flow cell priming: lift the SpotON sample port cover and load 200 µL of the remaining priming mix into the flow cell priming port (not the SpotON sample port), avoiding the introduction of air bubbles.",
+      "Mix the prepared library gently by pipetting a few times just prior to loading.",
+      "Add half of the library (~37.5 µL) to the flow cell via the SpotON sample port in a dropwise fashion. Ensure each drop flows into the port before adding the next. Resuspend the beads/library and add the second half in a dropwise fashion.",
+      "Gently replace the SpotON sample port cover, making sure the bung enters the SpotON port, and close the priming port.",
+      "Place the light shield onto the flow cell and close the device lid.",
+      {
+       "text": "Start the sequencing run using MinKNOW. Go to Start, then Start sequencing run, and navigate through the pages to:",
+       "substeps": [
+        "Enter the experiment name as per the lab standards.",
+        "Select the correct flow cell type.",
+        "Select the correct library prep kit used.",
+        "Turn basecalling ON with the high accuracy model, and barcoding both ends.",
+        "If methylation profiling is required, select the appropriate modified bases."
+       ]
+      },
+      {
+       "type": "note",
+       "text": "If using live basecalling, turn on double-ended barcoding in the basecalling settings."
+      },
+      "Monitor the run every hour and reload library when sequencing output is reduced.",
+      "Proceed to the next step on how to wash a flow cell and reload library on the MinION or GridION if required."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Flow Cell Wash",
+   "intro": [
+    "To describe the procedure for washing an Oxford Nanopore Technologies flow cell.",
+    "Kits used: Flow Cell Wash Kit (EXP-WSH004) or Flow Cell Wash Kit XL (EXP-WSH004-XL)."
+   ],
+   "content": [
+    {
+     "type": "materials",
+     "consumables": [
+      "Filtered pipette tips",
+      "1.5 mL Eppendorf DNA LoBind tubes",
+      "Ice for the reagent cooling container"
+     ],
+     "reagents": [
+      "Wash Mix (WMX)",
+      "Wash Diluent (DIL)",
+      "Storage Buffer (S), if the flow cell will be stored after washing"
+     ],
+     "equipment": [
+      "MinION/GridION device",
+      "Micropipettes",
+      "Vortex mixer",
+      "Microcentrifuge",
+      "Ice bucket"
+     ]
+    },
+    {
+     "type": "note",
+     "text": "If another sequencing library will be loaded, refer to the flow cell priming and library loading sections and make those reagents available."
+    },
+    {
+     "type": "reagent_prep",
+     "rows": [
+      [
+       "Wash Mix (WMX)",
+       "-25°C to -15°C",
+       "Thaw on ice, pipette well to mix and briefly centrifuge."
+      ],
+      [
+       "Wash Diluent (DIL)",
+       "-25°C to -15°C",
+       "Thaw at room temperature, vortex to mix, briefly centrifuge and place back on ice."
+      ],
+      [
+       "Storage Buffer (S)",
+       "-25°C to -15°C",
+       "Thaw at room temperature, vortex to mix and briefly centrifuge."
+      ]
+     ]
+    },
+    {
+     "type": "section",
+     "title": "Preparation of the Flow Cell Wash Mix"
+    },
+    {
+     "type": "important",
+     "text": "Prepare the Flow Cell Wash Mix fresh for each use. Do not prepare the mixture more than one day in advance because this may reduce washing performance."
+    },
+    {
+     "type": "procedure",
+     "heading": null,
+     "steps": [
+      "In a new 1.5 mL Eppendorf DNA LoBind tube, prepare the following Flow Cell Wash Mix:",
+      {
+       "type": "table",
+       "layout": "compact",
+       "header": [
+        "Component",
+        "Volume"
+       ],
+       "rows": [
+        [
+         "Wash Mix (WMX)",
+         "2.0 µL"
+        ],
+        [
+         "Wash Diluent (DIL)",
+         "398 µL"
+        ],
+        [
+         "Total",
+         "400 µL"
+        ]
+       ]
+      },
+      "Mix well by pipetting up and down and spin down.",
+      {
+       "type": "caution",
+       "text": "Do not vortex the prepared Flow Cell Wash Mix."
+      },
+      "Place the prepared mixture on ice until it is required for washing.",
+      {
+       "type": "note",
+       "text": "Prepare one 400 µL mixture for each flow cell to be washed."
+      }
+     ]
+    },
+    {
+     "type": "section",
+     "title": "Pausing or Stopping the Sequencing Run"
+    },
+    {
+     "type": "procedure",
+     "heading": null,
+     "steps": [
+      "Open MinKNOW.",
+      "Pause the run if reloading, or stop the sequencing experiment if sufficient data has been generated.",
+      "Confirm that the flow cell is no longer actively sequencing.",
+      "Leave the flow cell inserted in the MinION or GridION device throughout the washing procedure.",
+      "The flow cell light shield may remain in place during washing. If it is removed to improve visibility, ensure that it is replaced before sequencing resumes or a new run begins.",
+      "Ensure that the priming port cover is closed.",
+      "Ensure that the SpotON sample port cover is closed.",
+      "Confirm that both covers are properly positioned."
+     ]
+    },
+    {
+     "type": "important",
+     "text": "Keeping these ports closed while removing the waste buffer helps prevent air from being drawn across the sensor array, which can cause substantial loss of sequencing channels."
+    },
+    {
+     "type": "section",
+     "title": "Removal of Waste Buffer"
+    },
+    {
+     "type": "procedure",
+     "heading": null,
+     "steps": [
+      "Set the P1000 micropipette to 1,000 µL.",
+      "Fit the pipette with an appropriate tip.",
+      "Insert the tip into waste port 1.",
+      "Slowly aspirate the waste buffer from the waste channel.",
+      "Continue until the waste buffer has been removed.",
+      "If necessary, dispense the aspirated liquid into an appropriate waste receptacle and repeat the aspiration until the waste channel has been emptied.",
+      "Keep the priming port and SpotON sample port closed throughout this operation.",
+      {
+       "type": "important",
+       "text": "Perform the aspiration slowly. With the priming and SpotON ports closed, fluid should not leave the sensor array."
+      },
+      "Proceed to the wash step after the waste buffer has been removed."
+     ]
+    },
+    {
+     "type": "section",
+     "title": "Removing Air Bubbles"
+    },
+    {
+     "type": "procedure",
+     "heading": null,
+     "steps": [
+      "Locate the flow cell priming port.",
+      "Slide the priming port cover clockwise to open it.",
+      "Inspect the area beneath the cover for a small air bubble.",
+      "Set the P1000 micropipette to 200 µL.",
+      "Insert the pipette tip into the priming port.",
+      "Carefully draw back a small amount of liquid. The manufacturer's instructions describe adjusting the pipette dial to approximately 220 to 230 µL to withdraw a small volume.",
+      "Inspect the flow cell visually.",
+      "Confirm that a continuous layer of buffer remains between the priming port and the sensor array."
+     ]
+    },
+    {
+     "type": "caution",
+     "label": "Precaution",
+     "text": "Do not withdraw more than 20 to 30 µL from the flow cell during this operation. The nanopore array must remain covered by buffer at all times. Introducing air bubbles into the array can irreversibly damage pores."
+    },
+    {
+     "type": "section",
+     "title": "Washing of the Flow Cell"
+    },
+    {
+     "type": "procedure",
+     "heading": null,
+     "steps": [
+      "Using a P1000 micropipette, take 200 µL of the flow cell wash mix.",
+      "Inspect the pipette tip and ensure that it contains no air bubbles.",
+      "Insert the tip into the priming port.",
+      "Dispense the wash mixture slowly and continuously.",
+      "If the pipette permits, use its wheel to control the dispensing rate. Otherwise, depress the plunger very slowly.",
+      "Avoid introducing air into the flow cell.",
+      "Start a timer immediately after loading the first 200 µL.",
+      "Allow the wash mixture to remain in the flow cell for 5 minutes.",
+      "After the 5-minute incubation, take the remaining 200 µL of the prepared wash mixture.",
+      "Load the second 200 µL through the priming port using the same slow, continuous dispensing technique.",
+      "Close the priming port cover.",
+      "Allow the wash mixture to incubate for 1 hour."
+     ]
+    },
+    {
+     "type": "section",
+     "title": "Remove the Waste Buffer After Washing"
+    },
+    {
+     "type": "procedure",
+     "heading": null,
+     "steps": [
+      {
+       "text": "After the 1-hour incubation:",
+       "substeps": [
+        "Keep the priming port and SpotON sample port closed.",
+        "Set the P1000 micropipette to 1,000 µL.",
+        "Insert the pipette tip into waste port 1.",
+        "Slowly aspirate the waste buffer.",
+        "Repeat the aspiration if necessary, until all waste buffer has been removed from the waste channel."
+       ]
+      },
+      "Proceed immediately to either preparation for loading a subsequent sequencing library (Option A) or preparation of the flow cell for storage (Option B)."
+     ]
+    },
+    {
+     "type": "section",
+     "title": "Post-wash Option A: Preparation for Another Sequencing Run",
+     "intro": "If the flow cell will be reused immediately, follow the protocol for priming and loading the sequencing library."
+    },
+    {
+     "type": "section",
+     "title": "Post-wash Option B: Storing the Flow Cell"
+    },
+    {
+     "type": "procedure",
+     "heading": null,
+     "steps": [
+      "Allow one tube of Storage Buffer (S) to thaw at room temperature.",
+      "Slide the flow cell priming port cover clockwise to open it.",
+      "Inspect the area beneath the cover for a small air bubble.",
+      "If necessary, carefully draw back a small amount of liquid using the manufacturer's specified priming-port procedure.",
+      "Do not withdraw more than 20 to 30 µL, and ensure that the nanopore array remains covered by buffer.",
+      "Using a P1000 micropipette, take 500 µL of Storage Buffer (S).",
+      "Insert the tip into the priming port.",
+      "Slowly dispense the Storage Buffer into the flow cell.",
+      "Close the priming port.",
+      "Set the P1000 micropipette to 1,000 µL.",
+      "Insert the pipette tip into waste port 1.",
+      "Slowly aspirate the waste buffer from the waste channel.",
+      "Repeat the aspiration if necessary, until the waste channel has been emptied.",
+      "Store the flow cell at 2 to 8°C."
+     ]
+    },
+    {
+     "type": "note",
+     "items": [
+      "After washing or storage, perform a flow cell check to determine the number of nanopores available for another sequencing run.",
+      "When the flow cell is required again, remove it from storage and allow it to warm to room temperature for approximately 5 minutes before proceeding with the appropriate reuse workflow."
+     ]
+    }
+   ]
+  }
+ ]
+}
