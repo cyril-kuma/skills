@@ -6,7 +6,7 @@ Custom Claude/OpenCode skills for laboratory workflows and writing. Each skill i
 
 | Skill | Description |
 |-------|-------------|
-| **[humanizer](humanizer/)** | Rewrites prose to read like a careful person wrote it, not a chatbot. Fixes AI writing tells (em dashes, stock vocabulary, padded phrasing) and enforces Stephen's personal writing standard. |
+| **[humanizer](humanizer/)** | Rewrites prose to read like a careful person wrote it, not a chatbot. Fixes AI writing tells (em dashes, stock vocabulary, padded phrasing) and enforces personal writing standard. |
 | **[gel-labeller](gel-labeller/)** | Labels agarose gel images with sample IDs from a plate map, adds ladder size scales, and calls bands with sizes into a results table. Includes a full Python toolkit with platemap parsing, ladder fitting, QC, and rendering. |
 | **[sop-formatter](sop-formatter/)** | Formats laboratory SOPs into the NGS core lab house style and outputs a Word `.docx`. Converts a draft into a JSON spec, then `scripts/build_sop.py` renders it with consistent styling every time. |
 
